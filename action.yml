@@ -1,4 +1,4 @@
-name: 'CalVer-Increment'
+name: 'CalVer Increment and Tag'
 description: 'Automatically increments and tags a commit using CalVer versioning'
 author: 'Mani Reddy'
 outputs:
