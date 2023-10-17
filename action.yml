@@ -1,5 +1,5 @@
-name: 'CalVer'
-description: 'Auto-Increments and tags a commit using CalVer versioning'
+name: 'CalVer-Increment'
+description: 'Automatically increments and tags a commit using CalVer versioning'
 author: 'Mani Reddy'
 outputs:
   new_tag:
