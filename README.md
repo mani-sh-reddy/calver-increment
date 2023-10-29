@@ -28,26 +28,26 @@ To use this GitHub Action in your workflow, you can include the following step i
 file (`.github/workflows/calver.yml`):
 
 ```yaml
-name: CalVer Increment and Tag
-
+name: CalVer increment and tag
 on:
   push:
     branches:
       - main
-
+        
 jobs:
-  calver:
+  build:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-        with:
-          fetch-depth: '0'
+    - uses: actions/checkout@v3
+      with:
+        fetch-depth: '0'
 
-      - name: Increment and tag with CalVer
-        uses: mani-sh-reddy/calver-increment@v1.0.0
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
+    - name: Increment and tag with CalVer
+      uses: mani-sh-reddy/calver-increment@v1.1.0
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 ```
 
 ## License

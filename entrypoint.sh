@@ -32,6 +32,13 @@ setOutput() {
   echo "${1}=${2}" >>"${GITHUB_OUTPUT}"
 }
 
+if [ "$commit_hash_for_tag" == "$latest_commit_hash" ]; then
+  echo "Skipped since no new commits"
+  setOutput "new_tag" "$old_tag"
+  exit 0
+fi
+
+
 # Get current year (eg. 2023)
 current_year=$(date -u +%Y)
 
@@ -45,6 +52,14 @@ current_month=$(date -u +%-m)
 git fetch --tags
 git_refs=$(git for-each-ref --sort=-v:refname --format '%(refname:lstrip=2)')
 #git_refs=$(git tag --list --merged HEAD --sort=-committerdate)
+
+# Skip tagging if commit message starts with 'skip:'
+last_commit_message="$(git show -s --format=%B)"
+if [[ "$last_commit_message" == "skip:"* ]]; then
+  echo "Skipped due to commit message"
+  setOutput "new_tag" "$old_tag"
+  exit 0
+fi
 
 # calver_format 20<any 2 digit number>.<number from 1 to 12 inclusive>.<any number of any length>
 calver_format="^20\d{2}\.(0?[1-9]|1[0-2])\.\d+$"
