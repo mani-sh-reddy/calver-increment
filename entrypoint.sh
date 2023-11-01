@@ -32,13 +32,6 @@ setOutput() {
   echo "${1}=${2}" >>"${GITHUB_OUTPUT}"
 }
 
-if [ "$commit_hash_for_tag" == "$latest_commit_hash" ]; then
-  echo "Skipped since no new commits"
-  setOutput "new_tag" "$old_tag"
-  exit 0
-fi
-
-
 # Get current year (eg. 2023)
 current_year=$(date -u +%Y)
 
